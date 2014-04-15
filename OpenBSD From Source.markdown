@@ -130,3 +130,7 @@ uname -v
 ```
 
 This will print the name of the kernel you built (file you ran `config` on) plus a revision number, `#N`, this will be incremented every time you build.
+
+---
+
+
