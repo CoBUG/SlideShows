@@ -138,7 +138,7 @@ plus a revision number, `#N`, this will be incremented every time you build.
 
 ---
 
-# Build the rest of your system.
+### Build the rest of your system.
 
 ***Taken directly from `release(8)`***
 
