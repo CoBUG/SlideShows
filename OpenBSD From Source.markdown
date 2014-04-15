@@ -18,6 +18,9 @@ Why would you want to do this?
 
 `man release` will guide you!
 
+It should be considered the single source of truth when it comes to building
+OpenBSD releases!
+
 ---
 
 # Basic steps
@@ -96,7 +99,8 @@ cvs up -rOPENBSD_5_4
 cd /usr/src/sys/arch/$(uname -m)/conf
 ```
 
-Determine if your system is running the multi-processor kernel (MP) or not. This will determine what config file we use to build.
+Determine if your system is running the multi-processor kernel (MP) or not.
+This will determine what config file we use to build.
 
 ```
 uname -a
@@ -129,8 +133,103 @@ Once your machine is back up and running, verify the new kernel:
 uname -v
 ```
 
-This will print the name of the kernel you built (file you ran `config` on) plus a revision number, `#N`, this will be incremented every time you build.
+This will print the name of the kernel you built (file you ran `config` on)
+plus a revision number, `#N`, this will be incremented every time you build.
 
 ---
 
+# Build the rest of your system.
 
+***Taken directly from `release(8)`***
+
+1. Move all your existing object files out of the way and then remove them in
+the background:
+    ```
+    $ cd /usr/obj && mkdir -p .old && sudo mv * .old && \
+       sudo rm -rf .old &
+    ```
+2. Re-build your obj directories:
+    ```
+    $ cd /usr/src && make obj
+    ```
+3. Create directories that might be missing:
+    ```
+    $ cd /usr/src/etc && sudo DESTDIR=/ make distrib-dirs
+    ```
+4. Begin the build:
+    ```
+    $ cd /usr/src && make SUDO=sudo build
+    ```
+
+Update /etc, /var, and /dev/MAKEDEV, either by hand or using sysmerge(8).
+
+---
+
+# YAY!
+
+You are now running a fully updated system! Depending on the output of
+sysmerge, you may want to reboot (if login.conf or friends changed).
+
+---
+
+### Do I have to do this for every *#@&ing machine I own?! ###
+
+---
+
+# No.
+
+---
+
+Remember when you installed OpenBSD, it asked you what `sets` you wanted to
+install?
+
+We can cut a `release` that includes the sets (baseXX.tgz.. etc) for our
+updated build!
+
+---
+
+## Building a release
+
+Two important shell variables:
+
+1. `DESTDIR` - directory that will contain a full OpenBSD installation. Must be
+empty at start of build process.
+
+2. `RELEASEDIR` - directory where the release files are stored.
+
+Make sure you have large enough disks!
+
+---
+
+# ....
+
+Ensure `${DESTDIR}` exists as an empty directory and `${RELEASEDIR}` exists.
+`${RELEASEDIR}` need not be empty.  You must be root to create a release:
+
+```
+   su
+   export DESTDIR=your-destdir; export RELEASEDIR=your-releasedir
+   test -d ${DESTDIR} && mv ${DESTDIR} ${DESTDIR}- && \
+      rm -rf ${DESTDIR}- &
+   mkdir -p ${DESTDIR} ${RELEASEDIR}
+```
+
+Make the release and check that the contents of `${DESTDIR}` pretty much
+match the contents of the release tarballs:
+
+```
+   cd /usr/src/etc && make release
+   cd /usr/src/distrib/sets && sh checkflist
+   unset RELEASEDIR DESTDIR
+```
+
+At this point you have most of an OpenBSD release.
+
+***above taken from `release(8)` - it seriously is your friend!***
+
+---
+
+# All done!
+
+Now we can put the .tgz files on a webserver somewhere and upgrade to our
+hearts content!
