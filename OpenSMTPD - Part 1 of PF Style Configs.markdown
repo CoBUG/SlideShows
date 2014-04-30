@@ -7,7 +7,7 @@
 
 ---
 
-# Why was another SMTP created?
+### Why was another SMTP created?
 
 Dissatisfaction with current implementations of SMTP. Most of them have very
 complex configuration.
@@ -41,7 +41,7 @@ comments, but the file length sans comments and white space is ~646 lines!!!)</s
 
 ---
 
-# eye bleach
+### eye bleach
 
 OpenSMTPD line that does almost* the same thing:
 
@@ -56,7 +56,7 @@ relay the messages, but don't worry, that's just one more line :P</span>
 
 ---
 
-# eye bleach breakdown
+### eye bleach breakdown
 
 This line defines a macro that can be later referenced as *$lan_addr*
 
@@ -74,13 +74,13 @@ listen on $lan_addr
 
 The second iteration of this line includes the `tls` and `auth` options.
 
-1. `tls` will allow secured connections using STARTTLS on the default port 465.
+1. `tls` will allow secured connections using STARTTLS on the default port 25.
 2. `auth` forces clients to authenticate before they can preform any SMTP
 transactions.
 
 ---
 
-# to accept or reject
+### to accept or reject
 
 As with any PF style rule configuration, rules are processed in order, from
 first to last. This means if you reject something that had a later rule to
@@ -99,24 +99,24 @@ accepting any.
 
 ---
 
-# Matchers
+### Matchers
 
 Here is a brief list of things `accept / reject` can match against:
 
 1. `any` : a catch all to match anything
 1. `local` : any message originating from the local machine
-1. `source *table*` : matches connections originating from a client listed in a
-\*table\*
-1. `sender *table*` : matches email addresses from \*table\*
+1. `source <table>` : matches connections originating from a client listed in a
+\<table\>
+1. `sender <table>` : matches email addresses from \<table\>
 
-## tables ? ###
+### tables ? ###
 
 Tables are essentially lists. They can be a list of IP addresses (say for
 matching against `source`), email addresses, domains, user maps.. etc.
 
 ---
 
-# !!!!!
+### !!!!!
 
 Not not not, not not!
 
@@ -138,7 +138,7 @@ from the `baddies` table!
 
 ---
 
-# my first config
+### my first config
 
 ```
 listen on lo0
@@ -153,7 +153,7 @@ See if you can figure out what this configuration is allowing and disallowing!
 
 ---
 
-# complex examples
+### complex examples
 
 ```
 pki mx1.prism.mx certificate "/etc/ssl/mx1.prism.mx.crt"
@@ -185,6 +185,14 @@ accept from any for domain prism.mx alias <aliases> \
 accept tagged DKIM for any relay source <sources> helo <names>
 accept for any relay via smtp://127.0.0.1:10027
 ```
+
+---
+### Common uses and examples
+
+1. Local delivery (configured by default on OpenBSD).
+1. Relay via external server.
+1. Receive mail for a domain.
+1. Using a Database as a source for users, aliases or domains.
 
 ---
 
