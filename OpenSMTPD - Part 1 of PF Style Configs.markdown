@@ -64,8 +64,8 @@ This line defines a macro that can be later referenced as *$lan_addr*
 lan_addr = "192.168.0.1"
 ```
 
-This line tells OpenSMTPD to listen on *$lan_addr* the interface that has the
-*192.168.0.1* IP address using the default smtp port (default because nothing
+This line tells OpenSMTPD to listen on *$lan_addr*, the interface that has the
+*192.168.0.1*, IP address using the default smtp port (default because nothing
 was explicitly set):
 
 ```
@@ -126,13 +126,13 @@ greater control in your pattern matching.
 Say you have a list of known bad IP addresses:
 
 ```
-table badies db:/etc/mail/bad_ips.db
-accept from ! source <badies> for domain example.org
+table baddies db:/etc/mail/bad_ips.db
+accept from ! source <baddies> for domain example.org
 ```
 
-The first line specifies a table called `badies` that contains the list of know
+The first line specifies a table called `baddies` that contains the list of know
 bad ip addresses. The second tells OpenSMTPD to accept any connections *not*
-from the `badies` table!
+from the `baddies` table!
 
 <span style="font-size: .5em;">*This slide and the previous cover a small chunk of the available options. I highly recommend reading [smtpd.conf(5)](https://opensmtpd.org/smtpd.conf.5.html) for a more comprehensive list of options!</span>
 
