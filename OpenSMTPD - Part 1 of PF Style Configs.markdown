@@ -52,7 +52,7 @@ listen on $lan_addr tls auth
 ```
 
 <span style="font-size: .5em;">* This is missing the bits to tell OpenSMTPD to
-relay the messages.</span>
+relay the messages, but don't worry, that's just one more line :P</span>
 
 ---
 
