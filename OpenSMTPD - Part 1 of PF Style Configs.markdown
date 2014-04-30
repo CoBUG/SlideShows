@@ -192,7 +192,7 @@ accept for any relay via smtp://127.0.0.1:10027
 1. [Local delivery (configured by default on OpenBSD).](https://github.com/CoBUG/Examples/blob/master/OpenSMTPD%20-%20Part%201%20of%20PF%20Style%20Configs/local_delivery.txt)
 1. [Relay via external server.](https://github.com/CoBUG/Examples/blob/master/OpenSMTPD%20-%20Part%201%20of%20PF%20Style%20Configs/relay_via_external.txt)
 1. [Receive mail for a domain.](https://github.com/CoBUG/Examples/blob/master/OpenSMTPD%20-%20Part%201%20of%20PF%20Style%20Configs/delivery_for_domain.txt)
-1. [Using a Database as a source for users, aliases or domains.]()
+1. [Using a Database as a source for users, aliases or domains.](https://github.com/CoBUG/Examples/blob/master/OpenSMTPD%20-%20Part%201%20of%20PF%20Style%20Configs/using_a_db_source.txt)
 
 ---
 
