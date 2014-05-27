@@ -71,7 +71,7 @@ There is also restart, reload, and check.
 
 If a user is already ssh'd in the box, **stopping the daemon will not stop active connections.**  It only stops new connections from initiating!  
 
-If you want to stop all ssh activity, you must also kill active ssh sessions in addition to stopping the daemon. "ps -A | grep sshd" will show active ssh connections.  
+If you want to stop all ssh activity, you must also kill active ssh sessions in addition to stopping the daemon. "pgrep -lf sshd" will show active ssh connections.  
 
 ---
 
@@ -131,7 +131,7 @@ Passwords *are* lame.  That is why there is ssh-keygen, enabling passwordless lo
 
 Is your work place blocking that sweet, sweet ASCII porn?  Use a ssh tunnel!
 
---- 
+---
 
 ### Secret tunnels: Port Forwarding
 
@@ -167,6 +167,8 @@ ssh -D 7070 user@host
 ```
 
 Then configure your browser to use the proxy on the local port 7070.  Now you can browse anywhere over the proxy!
+
+-D still does not tunnel DNS lookups.  If you need all traffic to go through a tunnel, you can use a vpn or ssh-vpn!
 
 ---
 
