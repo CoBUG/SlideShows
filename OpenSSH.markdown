@@ -1,6 +1,6 @@
 # What is OpenSSH?
 
-* "A cryptographic network protocol for secure data communication, remote command-line login, remote command execution, and other secure network services between two networked computers." - Wikipedia
+>"A cryptographic network protocol for secure data communication, remote command-line login, remote command execution, and other secure network services between two networked computers." - Wikipedia
 
 ###Why would I want to use ssh?
 
@@ -38,7 +38,7 @@ And you should see soemthing like this:
 7656 ??  Is      0:00.02 /usr/sbin/sshd
 ```
 
-If you do, the sshd is running!
+If you do, the sshd is running.
 
 ---
 
@@ -50,7 +50,7 @@ If you have an OpenBSD box with a user account, you can ssh into it.
 ssh yourUser@theBoxYouWantToSshInto 
 ```
 
-That's it!
+Enter your password and that's it!
 
 
 ---
@@ -84,9 +84,9 @@ AllowUsers zamicol kur0
 PermitRootLogin no
 Port 7070
 ```
-You can also use a non-standard port to keep the baddies away.
+Some of these settings may not be a good idea, but it might help keep the baddies away.  
 
-You must restart sshd for these changes to take effect
+You must restart sshd for these changes to take effect.
 
 ```
 /etc/rc.d/sshd restart
@@ -104,9 +104,15 @@ Passwords *are* lame.  That is why there is ssh-keygen, enabling passwordless lo
 ```
 ssh-keygen -t rsa -b 2048 -C "LabelofYouChoosing"
 ```
-Pick a good lable, as it will identify your key to others. 
+	Pick a good lable, as it will identify your key to others. 
+
 3. It will ask for a place to save it.  The default is fine. 
 4. Leave the passphrase empty.  
+
+---
+
+### Passwords are lame cont.
+
 5. There should now be an id_rsa and a id_rsa.pub file.
 6. Append id_rsa.pub to the end of the authorized_keys file on the machine you want to ssh to.  You can give out id_rsa.pub to any machine you want to log into using a key.
     * **Never** give out the id_rsa.  That's your private key!
@@ -120,6 +126,10 @@ Pick a good lable, as it will identify your key to others.
 ![Secret Tunnel](http://24.media.tumblr.com/eb5a56a9082029777ee0421e34d6d6c3/tumblr_mitciedNmy1qat7jlo2_1280.png)
 
 Is your work place blocking that sweet, sweet ASCII porn?  Use a ssh tunnel!
+
+--- 
+
+### Secret tunnels: Port Forwarding
 
 Here's an example of port forwarding.  
 
@@ -158,4 +168,5 @@ Then configure your browser to use the proxy on the local port 7070.  Now you ca
 
 ###More Resources
 [OpenBSD man page](http://www.openbsd.org/cgi-bin/man.cgi?query=ssh)
+
 [RFC 4253](http://tools.ietf.org/html/rfc4253)
