@@ -1,8 +1,6 @@
 # What is OpenSSH?
 
->"A cryptographic network protocol for secure data communication, remote command-line login, remote command execution, and other secure network services between two networked computers." 
-
--Wikipedia
+>"A cryptographic network protocol for secure data communication, remote command-line login, remote command execution, and other secure network services between two networked computers." -Wikipedia
 
 
 ###Why would I want to use ssh?
@@ -32,13 +30,13 @@ Because it's awesome!
 To check to make sure that the OpenSSH server (the ssh daemon, or sshd) is running, log into the system and do something like the following:
 
 ```
-ps -A | grep sshd
+pgrep -lf sshd
 ```
 
 And you should see soemthing like this:
 
 ```
-7656 ??  Is      0:00.02 /usr/sbin/sshd
+7656 sshd
 ```
 
 If you do, sshd is running.
@@ -89,6 +87,7 @@ AllowUsers zamicol kur0
 PermitRootLogin no
 Port 7070
 ```
+
 Some of these settings may not be a good idea, but it might help keep the baddies away.  
 
 You must restart sshd for these changes to take effect.
@@ -121,7 +120,7 @@ Passwords *are* lame.  That is why there is ssh-keygen, enabling passwordless lo
 5. There should now be an id_rsa and a id_rsa.pub file.
 6. Append id_rsa.pub to the end of the authorized_keys file on the machine you want to ssh to.  You can give out id_rsa.pub to any machine you want to log into using a key.
     * **Never** give out the id_rsa.  That's your private key!
-    * id_rsa.pub should be in /home/theUserYouAreUsingToLogin/.ssh/authorized_keys.  
+    * id_rsa.pub should be in /home/theUser/.ssh/authorized_keys.  
 7. You will now be able to login as that user without a password. Whoooo!
 
 ---
