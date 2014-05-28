@@ -102,26 +102,26 @@ You must restart sshd for these changes to take effect.
 
 Passwords *are* lame.  That is why there is ssh-keygen, enabling passwordless logins.
 
-1. Go to ~/.ssh
+* Go to ~/.ssh
     * There should be "authorized_keys" and "known_hosts", but nothing else on a fresh system
-2. Type
+* Type
 	```
 	ssh-keygen -t rsa -b 2048 -C "LabelofYouChoosing"
 	```
 	Pick a good lable, as it will identify your key to others. 
 
-3. It will ask for a place to save it.  The default is fine. 
-4. Leave the passphrase empty.  
+* It will ask for a place to save it.  The default is fine. 
+* Leave the passphrase empty.  
 
 ---
 
 ### Passwords are lame continued
 
-5. There should now be an id_rsa and a id_rsa.pub file.
-6. Append id_rsa.pub to the end of the authorized_keys file on the machine you want to ssh to.  You can give out id_rsa.pub to any machine you want to log into using a key.
+* There should now be an id_rsa and a id_rsa.pub file.
+* Append id_rsa.pub to the end of the authorized_keys file on the machine you want to ssh to.  You can give out id_rsa.pub to any machine you want to log into using a key.
     * **Never** give out the id_rsa.  That's your private key!
     * id_rsa.pub should be in /home/theUser/.ssh/authorized_keys.  
-7. You will now be able to login as that user without a password. Whoooo!
+* You will now be able to login as that user without a password. Whoooo!
 
 ---
 
@@ -168,11 +168,14 @@ ssh -D 7070 user@host
 
 Then configure your browser to use the proxy on the local port 7070.  Now you can browse anywhere over the proxy!
 
--D still does not tunnel DNS lookups.  If you need all traffic to go through a tunnel, you can use a vpn or ssh-vpn!
+-D still does not tunnel DNS lookups.  If you need all traffic to go through a tunnel, you can use vpn or ssh vpn!
 
 ---
+
 
 ###More Resources
 [OpenBSD man page](http://www.openbsd.org/cgi-bin/man.cgi?query=ssh)
 
 [RFC 4253](http://tools.ietf.org/html/rfc4253)
+
+[VPN's on OpenBSD](http://www.kernel-panic.it/openbsd/vpn/vpn5.html)
