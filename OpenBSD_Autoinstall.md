@@ -42,13 +42,13 @@ including but not limited to:
 Everything one needs to get going is already installed under OpenBSD. There is
 no need to install any packages. The core components of an autoinstall rig are:
 
-  - **`[dhcp server]`** 
+  - **[dhcp server]** 
     - handles pxe requests
     - assigns next-server to pxeclient
-  - **`[tftp server]`** 
+  - **[tftp server]** 
     - serves `/bsd.rd` kernel
     - serves `/pxeboot` (as `/auto_install`)
-  - **`[web server]`** 
+  - **[web server]** 
     - serves installation sets (like you would see in a public mirror)
 
 ---
@@ -71,13 +71,15 @@ I run dhcpd from my router, however, it can be run from anywhere as long as you
 have control of the broadcast domain. Add a stanza similar to this into your
 `/etc/dhcpd.conf`:
 
-    # grep cobug /etc/dhcpd.conf
-    subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example 
-        range 192.168.10.150 192.168.10.250;    # cobug example 
-        option routers 192.168.10.1;            # cobug example 
-        next-server 192.168.10.1;               # cobug example 
-        filename "auto_install";                # cobug example 
-    }                                           # cobug example
+<code console>
+# grep cobug /etc/dhcpd.conf
+subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example 
+    range 192.168.10.150 192.168.10.250;    # cobug example 
+    option routers 192.168.10.1;            # cobug example 
+    next-server 192.168.10.1;               # cobug example 
+    filename "auto_install";                # cobug example 
+}                                           # cobug example
+</code>
 
 ---
 
@@ -85,13 +87,17 @@ have control of the broadcast domain. Add a stanza similar to this into your
 
 Make sure it runs on boot 
 
+<code console>
     # grep 'dhcpd_flags' /etc/rc.conf.local || echo 'dhcpd_flags=""' >> /etc/rc.conf.local
+</code>
 
 start dhcpd
 
+<code console>
     # /etc/rc.d/dhcpd restart
     dhcpd(ok) 
     dhcpd(ok)
+</code>
 
 ---
 
@@ -107,8 +113,9 @@ already contains the `pxeboot` and `bsd.rd` files we need.
 
 enable it on boot and point it to the webroot:
 
-    # grep 'tftpd_flags' /etc/rc.conf.local \
-    > || echo 'tftpd_flags="/var/www/htdocs/"' >> /etc/rc.conf.local
+<code console>
+grep 'tftpd_flags' /etc/rc.conf.local || echo 'tftpd_flags="/var/www/htdocs/"' >> /etc/rc.conf.local
+</code>
 
 start it
 
@@ -272,6 +279,72 @@ so in my lab, the setup looks something like this:
   * use `site${release}.tgz` to bootstrap your favorite software (CF Management comes to mind)
   * monitor multicast responses in order to bootstrap new clients
   * write an API-driven, dynamic `install.conf` generator (so that all install-answers are custom on a per-client basis)
+
+---
+
+## Complicated example
+
+In my lab, I have a similar setup to the one demonstrated earlier , however, I use `httpd`, `cgi-perl`,
+`mod_rewrite` and `sqlite3` to serve different install.confs that are built dynamically. This enables me to create and configure openbsd systems with a single command.
+
+---
+
+## Complicated Example (part 2)
+
+Suppose I wanted to create a new VM called hobosandwiches with a
+different site.tgz, and root key from the rest of my environment.
+
+  * run shellscript with arguments defining the pieces of the snowflake
+
+<code console>
+./create_vm.sh --name hobosandwiches \
+  --sitefile ./sitefiles/hobos_site.tgz \
+  --rootkey "$(cat keys/hobo.pub)"
+</code>
+
+---
+
+## Complicated Example (part 3)
+
+  * When this script executes, it will run a sql INSERT into a sqlite database, like so
+
+<code console>
+INSERT INTO vms (name,sitefile,rootkey) 
+  VALUES(
+    'hobosandwiches',
+    './sitefiles/hobos_site.tgz',
+    'ssh-rsafooooooooooooooooooooooo');
+</code>
+
+---
+
+## Complicated Example (part 4)
+
+  * Then, the script will go to a chosen hypervisor and actually create the VM.
+  * During the VM creation phase, a child will fork off and watch the output for the moment a MAC address is assigned
+  * When the MAC address is assigned, it is saved and the record we just added to the DB is updated
+
+`UPDATE vms SET mac='mac address' WHERE name='hobosandwiches';`
+
+---
+
+## Complicated Example (part 5)
+
+  * In the meantime, the VM gets created and boots
+  * When the VM boots, it checks http://next-server/MACaddress-install.conf
+  * apache is configured to rewrite that URL to `install.conf?mac=<mac>`
+
+`RewriteRule ^/?(.*)-install.conf$ /install.conf?mac=$1 [L]`
+
+  * Apache is also configured to serve install.conf as a perl script
+
+`AddHandler cgi-script .conf`
+
+---
+
+## Complicated example (part 6)
+
+Finally, when `install.sh` runs on the client and looks for http://next-server/MACaddress-install.conf, a customized response is delivered.
 
 ---
 
