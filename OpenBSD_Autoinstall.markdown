@@ -17,7 +17,7 @@
 
 ## What is it?
 
-`autoinstall(8)` is an install method that was added in OpenBSD 5.4.
+`autoinstall(8)` is an install method that was added in OpenBSD 5.5.
 
 The text-based installation procedure can be fully automated through the use of
 a preseeded configuration file containing answers to the questions.
