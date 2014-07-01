@@ -72,7 +72,6 @@ have control of the broadcast domain. Add a stanza similar to this into your
 `/etc/dhcpd.conf`:
 
 <code console>
-<pre>
 # grep cobug /etc/dhcpd.conf
 subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example 
     range 192.168.10.150 192.168.10.250;    # cobug example 
@@ -80,7 +79,6 @@ subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example
     next-server 192.168.10.1;               # cobug example 
     filename "auto_install";                # cobug example 
 }                                           # cobug example
-</pre>
 </code>
 
 ---
@@ -90,7 +88,8 @@ subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example
 Make sure it runs on boot 
 
 <code console>
-    # grep 'dhcpd_flags' /etc/rc.conf.local || echo 'dhcpd_flags=""' >> /etc/rc.conf.local
+    # grep 'dhcpd_flags' /etc/rc.conf.local || \
+    echo 'dhcpd_flags=""' >> /etc/rc.conf.local
 </code>
 
 start dhcpd
@@ -107,7 +106,9 @@ start dhcpd
 
 We will point tftpd to use the webroot instead of the default.  We want to do
 this because we will also be serving out the install media from there, which
-already contains the `pxeboot` and `bsd.rd` files we need.
+already contains the `pxeboot` and `bsd.rd` files we need. 
+
+Also because it lets us keep all the autoinstall files together in one place.
 
 ---
 
@@ -116,14 +117,17 @@ already contains the `pxeboot` and `bsd.rd` files we need.
 enable it on boot and point it to the webroot:
 
 <code console>
-grep 'tftpd_flags' /etc/rc.conf.local || echo 'tftpd_flags="/var/www/htdocs/"' >> /etc/rc.conf.local
+    grep 'tftpd_flags' /etc/rc.conf.local || \
+    echo 'tftpd_flags="/var/www/htdocs/"' >> /etc/rc.conf.local
 </code>
 
 start it
 
+<code console>
     # /etc/rc.d/tftpd restart
     tftpd(ok)
     tftpd(ok)
+</code>
 
 ---
 
@@ -131,7 +135,7 @@ start it
 
 Bandwidth is not free, so we will start a webserver and use it to serve the
 installation media we download. We will be making use of the webserver in the
-ladder half of this presentation.
+latter half of this presentation.
 
 ---
 
@@ -139,23 +143,29 @@ ladder half of this presentation.
 
 enable it on boot 
 
-    # grep 'nginx_flags=""' /etc/rc.conf.local || echo 'nginx_flags=""' >> rc.conf.local 
+<code console>
+    # grep 'nginx_flags=""' /etc/rc.conf.local || \
+    echo 'nginx_flags=""' >> rc.conf.local 
+</code>
 
 start it now
 
+<code console>
     # /etc/rc.d/nginx start
     nginx(ok)
+</code>
 
 ---
 
 ## Getting the installation media: Part 1
 
 You need to download all of the files you see in a url like
-http://ftp.usa.openbsd.org/pub/OpenBSD/5.5/amd64/ 
+`http://ftp.usa.openbsd.org/pub/OpenBSD/5.5/amd64/` (assuming you're installing amd64)
 
 OpenBSD does not come with wget, but it does come with an http-compatible `ftp`
 binary, which we will use like so:
 
+<code console>
     # URL=http://ftp.usa.openbsd.org/pub/OpenBSD/5.5/amd64/
     # mkdir -p /var/www/htdocs/5.5/
     # cd /var/www/htdocs/5.5
@@ -164,6 +174,7 @@ binary, which we will use like so:
       awk '{print $2}' | \
       while read L; do ftp ${URL}/${L}; done
     # ftp ${URL}/SHA256{,.sig}
+</code>
 
 ---
 
@@ -172,19 +183,19 @@ binary, which we will use like so:
 Now that you have the installation media, symlink the pxeboot file in `5.5/` to a
 file called `auto_install`
 
+<code console>
     # pwd
     /var/www/htdocs
     # ln -s 5.5/pxeboot ./auto_install
     # ls -l
     total 12
     drwxr-xr-x  2 root  daemon  1024 May 27 16:41 5.5
-    -r--r--r--  1 root  bin      537 May 26 11:33 50x.html
-    drwxr-xr-x  2 root  wheel    512 May 27 16:41 bgplg
     lrwxr-xr-x  1 root  daemon    11 May 27 16:48 auto_install -> 5.5/pxeboot
+</code>
 
 We named it auto_install for two reasons:
 
-  - we set `filename "auto_install";` in the dhcpd.conf
+  - we set `filename "auto_install";` in the `dhcpd.conf`
   - we wish to install, not upgrade or boot to the interactive installer. By
     naming it `auto_install` the installer knows it must initiate the
 autoinstall process (as opposed to the autoupgrade or interactive installer)
@@ -195,6 +206,7 @@ autoinstall process (as opposed to the autoupgrade or interactive installer)
 
 Now finally, set the `bsd` kernel in the tftp/web root so we can actually boot it:
 
+<code console>
     # pwd
     /var/www/htdocs
     # ln -s 5.5/bsd.rd bsd
@@ -205,6 +217,7 @@ Now finally, set the `bsd` kernel in the tftp/web root so we can actually boot i
     drwxr-xr-x  2 root  wheel    512 May 27 16:41 bgplg
     lrwxr-xr-x  1 root  daemon    10 May 27 16:58 bsd -> 5.5/bsd.rd
     lrwxr-xr-x  1 root  daemon    11 May 27 16:48 auto_install -> 5.5/pxeboot
+</code>
 
 ---
 
@@ -246,16 +259,22 @@ available at:
 
 so in my lab, the setup looks something like this:
 
+<code console>
+    # pwd
+    /var/www/htdocs
     # ls -l
     total 16
     drwxr-xr-x  2 root  daemon  1024 May 27 16:41 5.5
-    -r--r--r--  1 root  bin      537 May 26 11:33 50x.html
     lrwxr-xr-x  1 root  daemon    11 May 27 16:59 auto_install -> 5.5/pxeboot
-    drwxr-xr-x  2 root  wheel    512 May 27 16:41 bgplg
     lrwxr-xr-x  1 root  daemon    10 May 27 16:58 bsd -> 5.5/bsd.rd
     -rw-r--r--  1 root  daemon   365 May 27 17:41 install.conf
-    # pwd
-    /var/www/htdocs
+</code>
+
+---
+
+## Building an install.conf: Part 3 (cont'd)
+
+<code console>
     # cat install.conf
     system hostname = unconfigured
     password for root account = 2insecure4me
@@ -265,6 +284,7 @@ so in my lab, the setup looks something like this:
     Location of sets? = http
     server? = 192.168.10.1
     server directory? = 5.5/
+</code>
 
 ---
 
@@ -280,42 +300,42 @@ so in my lab, the setup looks something like this:
 
   * use `site${release}.tgz` to bootstrap your favorite software (CF Management comes to mind)
   * monitor multicast responses in order to bootstrap new clients
-  * write an API-driven, dynamic `install.conf` generator (so that all install-answers are custom on a per-client basis)
+  * write an API-driven, dynamic `install.conf` generator (so that all install-answers are custom on a per-client/MAC basis)
 
 ---
 
 ## Complicated example
 
 In my lab, I have a similar setup to the one demonstrated earlier , however, I use `httpd`, `cgi-perl`,
-`mod_rewrite` and `sqlite3` to serve different install.confs that are built dynamically. This enables me to create and configure openbsd systems with a single command.
+`mod_rewrite` and `sqlite3` to serve different `install.conf`s that are built dynamically. This enables me to create and configure openbsd systems with a single command.
 
 ---
 
 ## Complicated Example (part 2)
 
-Suppose I wanted to create a new VM called hobosandwiches with a
+Suppose I wanted to create a new VM called `hobosandwiches` with a
 different site.tgz, and root key from the rest of my environment.
 
-  * run shellscript with arguments defining the pieces of the snowflake
+  * run shellscript with arguments defining the pieces of the virtual machine
 
 <code console>
-./create_vm.sh --name hobosandwiches \
-  --sitefile ./sitefiles/hobos_site.tgz \
-  --rootkey "$(cat keys/hobo.pub)"
+    ./create_vm.sh --name hobosandwiches \
+      --sitefile ./sitefiles/hobos_site.tgz \
+      --rootkey "$(cat keys/hobo.pub)"
 </code>
 
 ---
 
 ## Complicated Example (part 3)
 
-  * When this script executes, it will run a sql INSERT into a sqlite database, like so
+  * When this script executes, it will run a SQL INSERT into a sqlite database, like so
 
 <code console>
-INSERT INTO vms (name,sitefile,rootkey) 
-  VALUES(
-    'hobosandwiches',
-    './sitefiles/hobos_site.tgz',
-    'ssh-rsafooooooooooooooooooooooo');
+    INSERT INTO vms (name,sitefile,rootkey) 
+      VALUES(
+        'hobosandwiches',
+        './sitefiles/hobos_site.tgz',
+        'ssh-rsafooooooooooooooooooooooo');
 </code>
 
 ---
@@ -326,29 +346,29 @@ INSERT INTO vms (name,sitefile,rootkey)
   * During the VM creation phase, a child will fork off and watch the output for the moment a MAC address is assigned
   * When the MAC address is assigned, it is saved and the record we just added to the DB is updated
 
-`UPDATE vms SET mac='mac address' WHERE name='hobosandwiches';`
+    `UPDATE vms SET mac='mac address' WHERE name='hobosandwiches';`
 
 ---
 
 ## Complicated Example (part 5)
 
-  * In the meantime, the VM gets created and boots
-  * When the VM boots, it checks http://next-server/MACaddress-install.conf
+  * In the meantime, the VM is created and boots
+  * When the VM boots, it checks `http://next-server/MACaddress-install.conf`
   * apache is configured to rewrite that URL to `install.conf?mac=<mac>`
 
-`RewriteRule ^/?(.*)-install.conf$ /install.conf?mac=$1 [L]`
+    `RewriteRule ^/?(.*)-install.conf$ /install.conf?mac=$1 [L]`
 
   * Apache is also configured to serve install.conf as a perl script
 
-`AddHandler cgi-script .conf`
+    `AddHandler cgi-script .conf`
 
 ---
 
 ## Complicated example (part 6)
 
-Finally, when `install.sh` runs on the client and looks for http://next-server/MACaddress-install.conf, a customized response is delivered.
+Finally, when `install.sh` runs on the client and looks for `http://next-server/MACaddress-install.conf`, a customized response is delivered.
 
 ---
 
 ## Questions / Comments
-### Flames / presents
+### Flames / Presents / Cakes
