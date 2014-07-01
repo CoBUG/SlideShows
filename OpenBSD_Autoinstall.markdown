@@ -72,15 +72,13 @@ have control of the broadcast domain. Add a stanza similar to this into your
 `/etc/dhcpd.conf`:
 
 <code console>
-<pre>
-# grep cobug /etc/dhcpd.conf
-subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example 
-    range 192.168.10.150 192.168.10.250;    # cobug example 
-    option routers 192.168.10.1;            # cobug example 
-    next-server 192.168.10.1;               # cobug example 
-    filename "auto_install";                # cobug example 
-}                                           # cobug example
-</pre>
+    # grep cobug /etc/dhcpd.conf
+    subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example 
+        range 192.168.10.150 192.168.10.250;    # cobug example 
+        option routers 192.168.10.1;            # cobug example 
+        next-server 192.168.10.1;               # cobug example 
+        filename "auto_install";                # cobug example 
+    }                                           # cobug example
 </code>
 
 ---
@@ -91,7 +89,7 @@ Make sure it runs on boot
 
 <code console>
     # grep 'dhcpd_flags' /etc/rc.conf.local || \
-    echo 'dhcpd_flags=""' >> /etc/rc.conf.local
+      echo 'dhcpd_flags=""' >> /etc/rc.conf.local
 </code>
 
 start dhcpd
@@ -119,8 +117,8 @@ Also because it lets us keep all the autoinstall files together in one place.
 enable it on boot and point it to the webroot:
 
 <code console>
-    grep 'tftpd_flags' /etc/rc.conf.local || \
-    echo 'tftpd_flags="/var/www/htdocs/"' >> /etc/rc.conf.local
+    # grep 'tftpd_flags' /etc/rc.conf.local || \
+      echo 'tftpd_flags="/var/www/htdocs/"' >> /etc/rc.conf.local
 </code>
 
 start it
@@ -147,7 +145,7 @@ enable it on boot
 
 <code console>
     # grep 'nginx_flags=""' /etc/rc.conf.local || \
-    echo 'nginx_flags=""' >> rc.conf.local 
+      echo 'nginx_flags=""' >> rc.conf.local 
 </code>
 
 start it now
@@ -215,8 +213,6 @@ Now finally, set the `bsd` kernel in the tftp/web root so we can actually boot i
     # ls -l
     total 12
     drwxr-xr-x  2 root  daemon  1024 May 27 16:41 5.5
-    -r--r--r--  1 root  bin      537 May 26 11:33 50x.html
-    drwxr-xr-x  2 root  wheel    512 May 27 16:41 bgplg
     lrwxr-xr-x  1 root  daemon    10 May 27 16:58 bsd -> 5.5/bsd.rd
     lrwxr-xr-x  1 root  daemon    11 May 27 16:48 auto_install -> 5.5/pxeboot
 </code>
@@ -259,7 +255,7 @@ available at:
 
     http://<next-server>/install.conf
 
-so in my lab, the setup looks something like this:
+In my lab, the setup looks something like this:
 
 <code console>
     # pwd
@@ -321,9 +317,9 @@ different site.tgz, and root key from the rest of my environment.
   * run shellscript with arguments defining the pieces of the virtual machine
 
 <code console>
-    ./create_vm.sh --name hobosandwiches \
-      --sitefile ./sitefiles/hobos_site.tgz \
-      --rootkey "$(cat keys/hobo.pub)"
+    # ./create_vm.sh --name hobosandwiches \
+        --sitefile ./sitefiles/hobos_site.tgz \
+        --rootkey "$(cat keys/hobo.pub)"
 </code>
 
 ---
@@ -333,6 +329,7 @@ different site.tgz, and root key from the rest of my environment.
   * When this script executes, it will run a SQL INSERT into a sqlite database, like so
 
 <code console>
+
     INSERT INTO vms (name,sitefile,rootkey) 
       VALUES(
         'hobosandwiches',
