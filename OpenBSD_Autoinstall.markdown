@@ -105,7 +105,7 @@ start dhcpd
 
 We will point tftpd to use the webroot instead of the default.  We want to do
 this because we will also be serving out the install media from there, which
-already contains the `pxeboot` and `bsd.rd` files we need.
+already contains the `auto_install` and `bsd.rd` files we need.
 
 ---
 
