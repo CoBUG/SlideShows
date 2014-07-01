@@ -43,8 +43,8 @@ Everything one needs to get going is already installed under OpenBSD. There is
 no need to install any packages. The core components of an autoinstall rig are:
 
   - **[dhcp server]** 
-    - handles pxe requests
-    - assigns next-server to pxeclient
+    - responds to dhcp requests from netboot/pxe clients
+    - returns `next-server` and `filename` to pxe client, telling it what to grab next
   - **[tftp server]** 
     - serves `/bsd.rd` kernel
     - serves `/pxeboot` (as `/auto_install`)
