@@ -72,6 +72,7 @@ have control of the broadcast domain. Add a stanza similar to this into your
 `/etc/dhcpd.conf`:
 
 <code console>
+<pre>
 # grep cobug /etc/dhcpd.conf
 subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example 
     range 192.168.10.150 192.168.10.250;    # cobug example 
@@ -79,6 +80,7 @@ subnet 192.168.10.0 netmask 255.255.255.0 { # cobug example
     next-server 192.168.10.1;               # cobug example 
     filename "auto_install";                # cobug example 
 }                                           # cobug example
+</pre>
 </code>
 
 ---
