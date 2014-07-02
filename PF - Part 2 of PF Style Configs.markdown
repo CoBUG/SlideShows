@@ -1,6 +1,6 @@
 # What is PF?
 
-PF or Packet Filter, is a filtering mechanism which lives
+PF, or Packet Filter, is a filtering mechanism which lives
 in the kernel, has a userland interface (`/dev/pf`) and tools (`pfctl`)
 for manipulating rules, table entries and gathering statistics.
 
