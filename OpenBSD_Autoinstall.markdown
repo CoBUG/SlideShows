@@ -239,7 +239,7 @@ asked by the installer.
 ### Example install.conf
 
     system hostname = unconfigured
-    password for root account = 2insecure4me
+    password for root account = hunter2
     network interfaces = em0
     IPv4 address for em0 = dhcp
     Location of sets? = http
