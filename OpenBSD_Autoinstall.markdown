@@ -239,7 +239,7 @@ asked by the installer.
 ### Example install.conf
 
     system hostname = unconfigured
-    password for root account = 2insecure4me
+    password for root account = hunter2
     network interfaces = em0
     IPv4 address for em0 = dhcp
     Location of sets? = http
@@ -275,7 +275,7 @@ In my lab, the setup looks something like this:
 <code console>
     # cat install.conf
     system hostname = unconfigured
-    password for root account = 2insecure4me
+    password for root account = hunter2
     Do you expect to run the X Window System? = yes
     Change the default console to com0? = yes
     What timezone are you in? = US/Mountain
