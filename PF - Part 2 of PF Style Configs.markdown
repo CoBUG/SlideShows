@@ -162,6 +162,38 @@ The entire rule is essentially limiting ssh connections to 5, and temporarily bl
 
 ---
 
+# NAT example
+
+```
+antispoof quick for { lo $int_if }
+
+match out on egress inet from !(egress:network) to any \
+      nat-to (egress:0)
+
+pass in on egress inet proto tcp from any to (egress) \ 
+     port $tcp_services
+```
+
+* `antispoof` blocks all traffic with a source IP from the netowrk that is on the interface(s) defined.
+* Can you figure out what the rest of the rules are doing?
+
+---
+
+# Blocking Windows™
+
+***Passive OS Fingerprinting*** is a method for determining an OS by inspecting slight differences in a TCP connection's SYN packet.
+
+To list fingerprints run:
+```
+pfctl -so
+```
+A rule that would block traffic from a Windows box would look something like this:
+
+```
+block in on $ext_if from any os "Windows"
+```
+---
+
 # More Info
 
 ### Awesome Books
@@ -172,3 +204,7 @@ The entire rule is essentially limiting ssh connections to 5, and temporarily bl
 * [pf(4)](http://www.openbsd.org/cgi-bin/man.cgi?query=pf&apropos=0&sektion=0&manpath=OpenBSD+Current&arch=i386&format=html)
 * [pfctl(8)](http://www.openbsd.org/cgi-bin/man.cgi?query=pfctl&sektion=0&manpath=OpenBSD+Current&arch=i386&format=html)
 * [pf.conf(5)](http://www.openbsd.org/cgi-bin/man.cgi?query=pf.conf&sektion=0&manpath=OpenBSD+Current&arch=i386&format=html)
+
+### Other Utilities
+
+* [pftop](http://www.eee.metu.edu.tr/~canacar/pftop/)
