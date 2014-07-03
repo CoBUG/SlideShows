@@ -190,7 +190,7 @@ pfctl -so
 A rule that would block traffic from a Windows box would look something like this:
 
 ```
-block in on $ext_if from any os "Windows"
+block return in on $ext_if proto tcp from any os "Windows"
 ```
 ---
 
