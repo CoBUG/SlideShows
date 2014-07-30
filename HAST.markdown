@@ -88,7 +88,7 @@ Now you are running a `memsync`'d HAST cluster!
 
 1. [hast.conf(5)](http://www.freebsd.org/cgi/man.cgi?query=hast.conf&sektion=5&apropos=0&manpath=FreeBSD+10.0-stable)
 2. [hastctl(8)](http://www.freebsd.org/cgi/man.cgi?query=hastctl&sektion=8&apropos=0&manpath=FreeBSD+10.0-stable)
-3. [hastd(8)[http://www.freebsd.org/cgi/man.cgi?query=hastd&sektion=8&apropos=0&manpath=FreeBSD+10.0-stable]
+3. [hastd(8)](http://www.freebsd.org/cgi/man.cgi?query=hastd&sektion=8&apropos=0&manpath=FreeBSD+10.0-stable)
 4. [HAST Wiki](https://wiki.freebsd.org/HAST)
 ---
 # Questions?
