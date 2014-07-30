@@ -1,5 +1,5 @@
 # FreeBSD's HAST
-HAST or "Highly Available STorage", is a mechanism built into FreeBSD that allows
+HAST or "Highly Available Storage", is a mechanism built into FreeBSD that allows
 for transparent syncing of block data between two physical hosts (connected via a network).
 
 HAST is a "primary/secondary" cluster, meaning that there will always be a single source
@@ -23,7 +23,7 @@ will be reduced as the TCP overhead / network latency will come into play (this 
 
 1. **memsync** - This mode will report a successful write when the following are met:
    1. After the local write is successful.
-   2. Remote node sends acknowledgement of data receipt. (Receipt is sent prior to writing data)
+   2. Remote node sends acknowledgment of data receipt. (Receipt is sent prior to writing data)
 2. **fullsync** - The safest of the replication modes, fullsync waits for write of the data on *both* hosts prior to marking a write successful.
 3. **async** - This is the most dangerous mode. Once data is written to the local disk, the write operation is considered successful. If you are on a high latency network, this is the option you want to used.
 
