@@ -31,7 +31,7 @@ will be reduced as the TCP overhead / network latency will come into play (this 
 
 # Example Config
 
-For the sake of the example, assume we have two machines (fbsdA and fbsdB) and both have a `/dev/da0` disk which contains the data we want to sync.
+For the sake of the example, assume we have two machines (fbsd_h1 and fbsd_h2) and both have a `/dev/da0` disk which contains the data we want to sync.
 
 The config file (/etc/hast.conf) must be the same on both the primary and secondary machines!
 
@@ -82,3 +82,13 @@ Name	 Status		Role		Components
 shared	 complete	secondary	/dev/ada0p4	tcp://10.0.1.231
 ```
 ---
+Now you are running a `memsync`'d HAST cluster!
+---
+# Further reading
+
+1. [hast.conf(5)](http://www.freebsd.org/cgi/man.cgi?query=hast.conf&sektion=5&apropos=0&manpath=FreeBSD+10.0-stable)
+2. [hastctl(8)](http://www.freebsd.org/cgi/man.cgi?query=hastctl&sektion=8&apropos=0&manpath=FreeBSD+10.0-stable)
+3. [hastd(8)[http://www.freebsd.org/cgi/man.cgi?query=hastd&sektion=8&apropos=0&manpath=FreeBSD+10.0-stable]
+4. [HAST Wiki](https://wiki.freebsd.org/HAST)
+---
+# Questions?
