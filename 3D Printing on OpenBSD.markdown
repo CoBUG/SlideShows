@@ -46,10 +46,10 @@ Generally slicers produce [G-Code](https://en.wikipedia.org/wiki/G-code) which i
 
   - Controlers on 3D printers are fairly basic, can't run large codebase.
   - 3D objects need to be represented in a linear set if instructions.
+  - ![Roberto](http://img1.wikia.nocookie.net/__cb20110619182621/en.futurama/images/9/96/Futurama_roberto.png)
 
-![Roberto](http://img1.wikia.nocookie.net/__cb20110619182621/en.futurama/images/9/96/Futurama_roberto.png)
 
---- 
+---
 
 ## Robot Programming
 
@@ -68,4 +68,26 @@ Not really a one to one - but you get the idea :D
 
 
 ---
+## Slicing Applications
 
+|Name|Open|Ease of Use|
+|---|---|---|
+|[Cura](http://wiki.ultimaker.com/Cura)|Yes|Easy|
+|[Pronterface](https://github.com/kliment/Printrun)|Yes|Medium|
+|[OctoPrint](http://octoprint.org/)|Yes|Easy|
+
+---
+
+## Printing
+
+Once the model is conveted to G-Code, we are ready to print with some kind of printing app!
+
+
+--- 
+
+## Printing Application
+|Name|Open|Ease of Use|
+|---|---|---|
+|Pronterface|Yes|Medium|
+|Cura|Yes|Easy|
+|OctoPrint|Yes|Easy|
