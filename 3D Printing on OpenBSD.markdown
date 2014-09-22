@@ -48,7 +48,7 @@ Generally slicers produce [G-Code](https://en.wikipedia.org/wiki/G-code) which i
   - 3D objects need to be represented in a linear set if instructions.
   - ![Roberto](http://img1.wikia.nocookie.net/__cb20110619182621/en.futurama/images/9/96/Futurama_roberto.png)
 
-
+Roberto approves!
 ---
 
 ## Robot Programming
@@ -91,3 +91,8 @@ Once the model is conveted to G-Code, we are ready to print with some kind of pr
 |Pronterface|Yes|Medium|
 |Cura|Yes|Easy|
 |OctoPrint|Yes|Easy|
+
+There are many more apps that can be used!
+
+---
+
