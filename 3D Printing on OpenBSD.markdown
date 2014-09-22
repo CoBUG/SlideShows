@@ -39,13 +39,15 @@ Have you ever done the "Robot Programming" exercise?
 Slicing is basically cutting a 3D model into commands that the printer turns into physical actions (think Robot Programming.. go forward 3 steps,
  turn left).
 
-Generally slicers produce (G-Code)[https://en.wikipedia.org/wiki/G-code] which is the final format printing apps like OctoPrint use.
+Generally slicers produce [G-Code](https://en.wikipedia.org/wiki/G-code) which is the final format printing apps like OctoPrint use.
 ---
 
 ## Reasons for slicing
 
   - Controlers on 3D printers are fairly basic, can't run large codebase.
   - 3D objects need to be represented in a linear set if instructions.
+
+![Roberto](http://img1.wikia.nocookie.net/__cb20110619182621/en.futurama/images/9/96/Futurama_roberto.png)
 
 --- 
 
@@ -64,4 +66,6 @@ G01 X114.395 Y115.288 F1080.000
 
 Not really a one to one - but you get the idea :D
 
+
+---
 
