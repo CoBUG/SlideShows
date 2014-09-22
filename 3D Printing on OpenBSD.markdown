@@ -25,6 +25,10 @@ This is an entire talk in and of itself, however, you have lots of choices!
 ** *Output Printer Friendly Files**
 
 ---
+## Finding things to print
+
+TODO fill out list of links for things like thingiverse
+---
 
 ## Slicing
 
@@ -81,10 +85,7 @@ Not really a one to one - but you get the idea :D
 ## Printing
 
 Once the model is conveted to G-Code, we are ready to print with some kind of printing app!
-
-
 --- 
-
 ## Printing Application
 |Name|Open|Ease of Use|
 |---|---|---|
@@ -93,6 +94,5 @@ Once the model is conveted to G-Code, we are ready to print with some kind of pr
 |OctoPrint|Yes|Easy|
 
 There are many more apps that can be used!
-
 ---
 
