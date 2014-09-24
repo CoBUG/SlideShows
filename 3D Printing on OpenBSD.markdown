@@ -54,7 +54,7 @@ Generally slicers produce [G-Code](https://en.wikipedia.org/wiki/G-code) which i
 ## Reasons for slicing
 
   - Controllers on 3D printers are fairly basic, can't run large code base.
-  - 3D objects need to be represented in a linear set if instructions.
+  - 3D objects need to be represented in a linear set of instructions.
   - ![Roberto](http://img1.wikia.nocookie.net/__cb20110619182621/en.futurama/images/9/96/Futurama_roberto.png)
 
 Roberto approves!
