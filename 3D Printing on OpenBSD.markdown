@@ -188,3 +188,12 @@ qbit@qbit[0]:/usr/ports/www/py-flask-loginλ cat distinfo
 SHA256 (Flask-Login-0.2.11.tar.gz) = g9XxDlxPIU/u1sxBwhLbY6WKFawy5W34FZG/oKXO4+U=
 SIZE (Flask-Login-0.2.11.tar.gz) = 11099
 ```
+----
+## Finishing up
+
+Next steps are:
+  - create pkg/DESCR
+  - install your package!
+  - repeat!
+
+Once all the reqs are in, we are ready to print with OctoPrint!
