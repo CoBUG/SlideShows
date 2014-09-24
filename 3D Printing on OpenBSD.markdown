@@ -148,3 +148,36 @@ MODPY_SETUPTOOLS =	Yes
 .include <bsd.port.mk>
 ```
 
+---
+
+## Important bits
+
+```
+MASTER_SITES =	     	${MASTER_SITE_PYPI:=F/Flask-Login/}
+```
+
+This bit of magic tells the ports system to grab a tarball from `PyPI`
+
+For a more comprehensive list of available `MASTER_SITES` check out:
+
+`/usr/ports/infrastructure/templates/network.conf.template`
+
+---
+
+## Testing the MASTER_SITE
+
+Once we have our Makefile in place we can test the fetching of our DISTFILE with `make fetch`.
+
+If all goes well you will see a progress bar showing the file you expected downloading.
+
+---
+
+## Building a `distinfo` file
+
+Now we need to create the `SHA256` checksum contained in the `distinfo` file associated with the port.
+
+Ports has your back! `make makesum` will generate your `distinfo` file!
+
+```
+
+```
