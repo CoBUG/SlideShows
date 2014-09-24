@@ -179,5 +179,12 @@ Now we need to create the `SHA256` checksum contained in the `distinfo` file ass
 Ports has your back! `make makesum` will generate your `distinfo` file!
 
 ```
-
+qbit@qbit[0]:/usr/ports/www/py-flask-loginλ make makesum
+===>  Checking files for py-flask-login-0.2.11
+>> Fetch http://pypi.python.org/packages/source/F/Flask-Login/Flask-Login-0.2.11.tar.gz
+Flask-Login-0.2.11.tar.gz 100% |***************************************************************************************************************************************| 11099       00:00    
+>> Checksum file does not exist
+qbit@qbit[0]:/usr/ports/www/py-flask-loginλ cat distinfo                                                                                                                                      
+SHA256 (Flask-Login-0.2.11.tar.gz) = g9XxDlxPIU/u1sxBwhLbY6WKFawy5W34FZG/oKXO4+U=
+SIZE (Flask-Login-0.2.11.tar.gz) = 11099
 ```
