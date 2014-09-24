@@ -27,7 +27,12 @@ This is an entire talk in and of itself, however, you have lots of choices!
 ---
 ## Finding things to print
 
-TODO fill out list of links for things like thingiverse
+Many objects have already been created, so search first, create later!
+
+  - [Thingiverse](http://www.thingiverse.com/)
+  - [Repables](http://repables.com/)
+  - [Magicube](http://www.magicu.be/)
+
 ---
 
 ## Slicing
@@ -85,7 +90,9 @@ Not really a one to one - but you get the idea :D
 ## Printing
 
 Once the model is conveted to G-Code, we are ready to print with some kind of printing app!
+
 --- 
+
 ## Printing Application
 |Name|Open|Ease of Use|
 |---|---|---|
@@ -94,5 +101,7 @@ Once the model is conveted to G-Code, we are ready to print with some kind of pr
 |OctoPrint|Yes|Easy|
 
 There are many more apps that can be used!
+
+
 ---
 
