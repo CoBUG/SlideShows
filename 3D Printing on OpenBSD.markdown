@@ -1,6 +1,6 @@
 # 3D Printing on OpenBSD
 
-**or** how to port python apps to OpenBSD!
+**and** how to port python apps to OpenBSD!
 
 ---
 
@@ -53,7 +53,7 @@ Generally slicers produce [G-Code](https://en.wikipedia.org/wiki/G-code) which i
 
 ## Reasons for slicing
 
-  - Controlers on 3D printers are fairly basic, can't run large codebase.
+  - Controllers on 3D printers are fairly basic, can't run large code base.
   - 3D objects need to be represented in a linear set if instructions.
   - ![Roberto](http://img1.wikia.nocookie.net/__cb20110619182621/en.futurama/images/9/96/Futurama_roberto.png)
 
@@ -89,7 +89,7 @@ Not really a one to one - but you get the idea :D
 
 ## Printing
 
-Once the model is conveted to G-Code, we are ready to print with some kind of printing app!
+Once the model is converted to G-Code, we are ready to print with some kind of printing app!
 
 --- 
 
