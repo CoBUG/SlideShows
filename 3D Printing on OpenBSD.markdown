@@ -102,6 +102,49 @@ Once the model is conveted to G-Code, we are ready to print with some kind of pr
 
 There are many more apps that can be used!
 
+---
+
+## Making an apple pie from scratch
+
+Porting 3D printing apps to OpenBSD using the magic that is the ports system!
 
 ---
+
+# Gathering requirements
+
+Usually this is a go-until-failure kinda thing, but sometimes you get a break!
+
+OctoPrint has a [list of required python modules](https://github.com/foosel/OctoPrint/blob/master/requirements.txt) included in the github repo!
+
+Searching the ports tree with `make search key=<item>` reveal we are missing 4 of the required libs.
+
+---
+
+# Find source
+
+Fortunately for us the reqs are all on [PyPI](https://pypi.python.org/pypi) and ports has facilities for grabbing stuff from there!
+
+---
+
+## Make a Makefile
+
+Now we build our `Makefile`! You can use `/usr/ports/infrastructure/templates/Makefile.template`, or copy an existing `PyPI` port.
+
+Here is a Makefile for `py-flask-login` (white space removed for slide)
+
+```
+COMMENT =		user session management for flask
+MODPY_EGG_VERSION =	0.2.11
+DISTNAME =	  	Flask-Login-${MODPY_EGG_VERSION}
+PKGNAME =		py-${DISTNAME:L}
+CATEGORIES =		www
+HOMEPAGE = 		https://github.com/maxcountryman/flask-login
+# MIT
+PERMIT_PACKAGE_CDROM =	Yes
+MASTER_SITES =	     	${MASTER_SITE_PYPI:=F/Flask-Login/}
+MODULES =    		lang/python
+RUN_DEPENDS +=		www/py-flask
+MODPY_SETUPTOOLS =	Yes
+.include <bsd.port.mk>
+```
 
