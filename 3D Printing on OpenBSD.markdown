@@ -82,8 +82,7 @@ Not really a one to one - but you get the idea :D
 |Name|Open|Ease of Use|
 |---|---|---|
 |[Cura](http://wiki.ultimaker.com/Cura)|Yes|Easy|
-|[Pronterface](https://github.com/kliment/Printrun)|Yes|Medium|
-|[OctoPrint](http://octoprint.org/)|Yes|Easy|
+|[Slic3r](http://slic3r.org/)|Yes|Medium|
 
 ---
 
