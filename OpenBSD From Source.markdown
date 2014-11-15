@@ -1,6 +1,6 @@
 # OpenBSD from Source
 
-![OpenBSD](https://deftly.net/banner1.gif)
+![OpenBSD](https://bolddaemon.com/banner1.gif)
 
 Why would you want to do this?
 
