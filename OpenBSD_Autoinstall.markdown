@@ -1,7 +1,7 @@
 # OpenBSD 
 # Autoinstall
 
-![OpenBSD](https://bolddaemon.com/banner1.gif)
+![OpenBSD](https://bolddaemon.com/img/banner1.gif)
 
 ---
 
