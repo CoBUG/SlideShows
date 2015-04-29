@@ -58,7 +58,7 @@ table <authpf_users persist
 
 If you don't like the default names, you can use `/etc/authpf/authpf.conf` to specify the table / anchor names you do want. Weirdo.
 
-Side Note: This file must exist for authpf to work!
+***Side Note - This file must exist for authpf to work!***
 
 ---
 
@@ -85,7 +85,7 @@ Group templates go in .. you guessed it! `/etc/authpf/groups/$GROUP/`
 
 Rules can be configured globally with `/etc/authpf/authpf.rules`
 
-Side Note: This file must also exist for authpf to work!
+***Side Note - This file must also exist for authpf to work!***
 
 ---
 
