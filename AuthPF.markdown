@@ -58,7 +58,7 @@ table <authpf_users persist
 
 If you don't like the default names, you can use `/etc/authpf/authpf.conf` to specify the table / anchor names you do want. Weirdo.
 
-**Side Note:** This file must exist for authpf to work!
+***Side Note:*** This file must exist for authpf to work!
 
 ---
 
@@ -134,5 +134,46 @@ queue rootq on $ext_if bandwidth 1000M max 1000M
 match proto tcp from !<authpf_users> to any set queue jerk
 ........
 ```
+---
+
+## Using authpf to troubleshoot firewall issues
+
+Say you have a firewall that is only allowing the following list of outbound traffic:
+
+```
+"{ftp, ssh, domain, http, https}"
+```
+
+Obviously everything that isn't going over one of these ports will be blocked.
 
 ---
+
+## FW Troubleshooting continued..
+
+But sometimes it isn't obvious why something isn't working.
+
+  - Some web pages load content over non-standard ports.
+  - Websockets!
+
+A quick method for troubleshooting is to create a user that has all traffic passed without restrictions.
+
+---
+
+## FW Troubleshooting continued..
+
+```
+# cat /etc/authpf/users/abieber
+pass from $user_ip
+#
+```
+
+Now when ever abieber authenticates with the gateway, it will create a rule that allows all of his traffic to flow freely!
+
+---
+
+# Warnings
+
+  - Rule order is extremely important!
+  - Giving a user unrestricted access might be a bad idea!
+    - What if there is some malicious JavaScript that runs on a web page they visit..
+      XMLHttpRequest can open a socket to just about any port!
