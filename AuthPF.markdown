@@ -49,7 +49,7 @@ Once a user authenticates their IP address is added to the `authpf_users` table 
 Definition of the `authpf_users` table:
 
 ```
-table <authpf_users persist
+table <authpf_users> persist
 ```
 
 ---
